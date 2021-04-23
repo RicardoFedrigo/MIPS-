@@ -22,3 +22,10 @@ Lista de implementações realizadas:
 - [ ] Teste do controle implementado utilizando o programa assembly MIPS teste_1.mem.
 
 - [ ] Testar o controle implementado utilizando o programa assembly MIPS teste_2.mem.
+
+
+
+## Fontes
+
+https://cs.wellesley.edu/~cs240/f14/lectures/18-control.pdf
+https://www.youtube.com/playlist?list=PL1C2GgOjAF-KYxZPKMANsGDXzDI_1OBGj
