@@ -11,7 +11,7 @@ O trabalho foi dividido em duas etapas:
 ## Task list:
 Lista de implementações realizadas: 
 
-- [ ] Caminho de dados utilizando o controle principal e da ALU manualmente para as instruções add, sub, and, or, slt, lw, sw e beq
+- [x] Caminho de dados utilizando o controle principal e da ALU manualmente para as instruções add, sub, and, or, slt, lw, sw e beq
 
 - [ ] Controle principal e da ALU utilizando lógica combinacional para as instruções add, sub, and, or, slt, lw, sw e beq.
 
