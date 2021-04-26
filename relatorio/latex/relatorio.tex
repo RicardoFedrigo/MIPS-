@@ -1,225 +1,363 @@
+\documentclass[
+	article,
+	11pt,
+	oneside,
+	a4paper,
+	english,
+	brazil,
+	]{abntex2}
 
-%
-%  $Description: Author guidelines and sample document in LaTeX 2.09$ 
-%
-%  $Author: ienne $
-%  $Date: 1995/09/15 15:20:59 $
-%  $Revision: 1.4 $
-%
-
-\documentclass[times, 10pt,twocolumn]{article} 
-\usepackage{latex8}
-\usepackage{times}
+\usepackage{cmap}
+\usepackage{lmodern}
+\usepackage{adjustbox}
+\usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[brazil]{babel}
-\usepackage{graphicx, url}
+\usepackage{indentfirst}
+\usepackage{nomencl}
+\usepackage{color}
+\usepackage{graphicx}
 \usepackage{listings}
+\usepackage[colorinlistoftodos]{todonotes}
+\graphicspath{ {./imagens/} }
+\usepackage{lipsum}
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf]{abntex2cite}
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+\renewcommand{\backref}{}
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}
+	
+\definecolor{blue}{RGB}{41,5,195}
 
-\usepackage[center]{caption}
-\usepackage[alf,abnt-emphasize=bf,abnt-full-initials=yes]{abntcite} %Pacote abntex -  http://abntex.codigolivre.org.br/
-
-%\documentstyle[times,art10,twocolumn,latex8]{article}
-
-\usepackage[usenames]{color}
-
-\definecolor{red}{rgb}{0.6,0,0} % for strings
-\definecolor{green}{rgb}{0.25,0.5,0.35} % comments
-\definecolor{purple}{rgb}{0.5,0,0.35} % keywords
-\definecolor{docblue}{rgb}{0.25,0.35,0.75} % javadoc
-
-\definecolor{DarkBlue}{rgb}{0,0,0.61}
-\definecolor{DarkGreen}{rgb}{0,0.4,0}
-
-\lstset{
-  language=vhdl,
-  basicstyle=\ttfamily\fontsize{10}{11}\selectfont,
-  keywordstyle=\color{purple}\bfseries,
-  stringstyle=\color{red},
-  commentstyle=\color{green},
-  morecomment=[s][\color{docblue}]{/*}{*/},
-  numbers=left,
-  numberstyle=\tiny\color{black},
-  stepnumber=1,
-  numbersep=10pt,
-  tabsize=4,
-  showspaces=false,
-  showstringspaces=false,
-  otherkeywords={\#include, \#define, \#pragma, \#typedef, dim3},
-  emph={ __device__, __global__, __shared__, __host__, __constant__},
-  emphstyle=\color{DarkBlue}\bfseries,
-  emph={[2] printf, scanf},
-  emphstyle=[2]\color{DarkGreen},
-  extendedchars=true,
-  frame=tb,
-  breaklines=true
+\makeatletter
+\hypersetup{
+		pdftitle={\@title}, 
+		pdfauthor={\@author},
+    	pdfsubject={Aps de Redes 1},
+	    pdfcreator={LaTeX with abnTeX2},
+		pdfkeywords={abnt}{latex}{abntex}{abntex2}{atigo científico}, 
+		colorlinks=true,
+    	linkcolor=blue,
+    	citecolor=blue,
+    	filecolor=magenta,
+		urlcolor=blue,
+		bookmarksdepth=4
 }
+\makeatother
 
-\usepackage{caption}
-\DeclareCaptionFont{black}{\color{black}}
+\makeindex
 
-\renewcommand{\lstlistingname}{Código}
+\setlrmarginsandblock{2cm}{2cm}{*}
+\setulmarginsandblock{2cm}{2cm}{*}
+\checkandfixthelayout
 
-\usepackage{footnote}
+\setlength{\parindent}{1.0cm}
 
-%------------------------------------------------------------------------- 
-% take the % away on next line to produce the final camera-ready version 
-\pagestyle{empty}
+\setlength{\parskip}{0.2cm}
 
-%------------------------------------------------------------------------- 
+\SingleSpacing
+
 \begin{document}
-\begin{savenotes}
-\title{Título do Artigo\footnote{Trabalho desenvolvido para a disciplina de BCC33B – Arquitetura e Organização de Computadores.}}
-
-
-\author{Primeiro Autor1, Segundo Autor\\
-Coordenação do Curso de Bacharelado em Ciência da Computação - COCIC\\
-Universidade Tecnológica Federal do Paraná - UTFPR\\ 
-Campus Campo Mourão\\
-Campo Mourão, Paraná, Brasil\\
-primeiro@email.com.br e segundo@email.com.br\\
-% For a paper whose authors are all at the same institution, 
-% omit the following lines up until the closing ``}''.
-% Additional authors and addresses can be added with ``\and'', 
-% just like the second author.
-}
-
-\maketitle
-\thispagestyle{empty}
-
+\begin{titlepage}
+    \begin{center}
+        \vspace*{1cm}
+            
+        \Huge
+        \textbf{Caminho de Dados de Ciclo Único e Controle MIPS}
+            
+        \vspace{0.5cm}
+        \LARGE
+            
+        \vspace{1.5cm}
+            
+        \textbf{Ricardo Fedrigo, Caio Eduardo Theodoro}
+            
+        \vfill
+            
+        \vspace{0.8cm}
+            
+        \includegraphics[width=1.0\textwidth]{imagens/utfpr.png}
+            
+        \Large
+        Coordenação do Curso de Bacharelado em Ciência da Computação - COCIC\\
+        Universidade Tecnológica Federal do Paraná - UTFPR\\ 
+        Campus Campo Mourão\\
+        Campo Mourão, Paraná, Brasil\\            
+    \end{center}
+\end{titlepage}
 \begin{abstract}
-   Apresente um resumo sobre o seu trabalho, lembre-se que o resumo deve introduzir, apresentar a idéia do seu trabalho de forma suficiente. O resumo de representar o seu trabalho, de maneira que ao ser impresso sozinho permita o leitor saber exatamente do que o trabalho trata. E caso lhe interesse o leitor irá ler o restante do conteúdo, as seções buscando a profundidade no tema.
-   Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá. Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá, Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá.
+    Neste artigo, será documentado e detalhado os processos da implementação do subconjunto de instruções da arquitetura MIPS estudados na disciplina de Arquitetura e Desenvolvimento de computadores, e também tem como propósito, entender o Logisim e suas bibliotecas internas e externas.
 \end{abstract}
-%------------------------------------------------------------------------- 
-\section{Introdução} \label{sec_introducao}
+\section{Funções basicas controlador:}
+\subsection{Sinais de controle :}
+Sinais de controle são um bloco com 9 entradas, que comandam os valores dos operadores do controlador, cada porta tem as seguintes propriedades:
 
-A introdução como o nome diz, deve introduzir o leitor no contexto do trabalho, se for o caso, no problema que está sendo tratado, na solução proposta, nos resultados de experimentos. A introdução é um segundo nível de profundidade nos detalhes do trabalho. Um introdução bem escrita deve ser capaz de representar o trabalho, em seu nível de profundidade. É interessante também que na introdução sejam apresentadas as seções/partes do trabalho, como por exemplo,  “O presente artigo está organizado da seguinte forma. A próxima seção descreve sobre .... A seção 3 aborda tal assunto. Tais coisas relacionados aparecem na seção 4. A seção 5 explica bla bla bla. Os experimentos e as conclusões são mostrados nas seções 6 e 7. No final tem-se as referências utilizadas.”. Lembre-se esse é apenas um modelo.
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.5]{imagens/SinaisDeControle.JPG}
+        \caption{Sinais de controle}
+        \label{fig:hostnetid}
+        \end{figure}
+        
+\begin{itemize}
+    \item \textbf{RegDst}: Determina qual o registrador de destino ( rt se 0, rd se 1).
+    \item \textbf{EscreveReg}: Dá o sinal para escrever no registrador ( 0 para não, 1 para sim).
+    \item \textbf{OrigALU}: Controla o multiplexador de seleção de entrada de dados. Ele faz a seleção de entrada de valor imediato ou de registrador.
+    \item \textbf{Branch(ou OrigPC)} - Controla o multiplexador que atualiza o PC, caso 0, ele realiza PC+=4, caso 1, o PC segue para o desvio.
+    \item \textbf{LeMem}: Controla a leitura da memoria, ( 1 para ler, 0 para não ler. note que somente a instrução lw tem permissão para leitura).
+    \item \textbf{EscreveMem}: Controla a escrita da memoria, ( 1 para escrever, 0 para não escrever. note que somente a instrução sw tem permissão para escrita).   
+    \item \textbf{MemparaReg}: Responsável pela seleção do multiplexador na saída da memória de dados. Ele Determina se a memoria de dados será salva em registrador.
+\end{itemize}
+\subsubsection{Decodificador :}
 
-%-------------------------------------------------------------------------
-% Salva as notas de rodapé na primeira página.
-\end{savenotes}
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.7]{imagens/Decodificador.JPG}
+        \caption{Circuito do Decodificador}
+        \label{fig:hostnetid}
+        \end{figure}
+O Decodificador é o bloco que recebe a memória da instrução, e a subdivide em três (3) formatos básicos, sendo cada uma responsavel por um tipo de operação ou conjunto de instrução, que são;
 
-%------------------------------------------------------------------------- 
-\section{Tópico do Texto} \label{sec_topico_texto}
-Os tópicos do texto, devem possuir nomes significativos que tenham relação com o texto, no seu texto podem haver referências a outros trabalhos e artigos que foram consultados, estudados para a elaboração do trabalho. Referências devem ter o seguinte formato: [número], por exemplo \cite{Codishetal2000} refere-se ao primeiro trabalho apresentado na seção “Referências” e assim por diante no decorrer do texto.
-As figuras devem ser referenciadas no seu texto e apresentadas conforme o modelo. Por exemplo, a Figura~{\ref{fig:figura-001}} apresenta como é feito o uso dos bancos da cache pelas tarefas.
+\begin{itemize}
+    \item \textbf{I-Format} Referenciam operando da memória.
+    \item \textbf{R-Format} Realizam operações em dados nos registradores.
+     \item \textbf{J-Format} Incluem as instruções de desvio.
+\end{itemize}
 
-\begin{figure}[!htb]
-    \centering
-    \includegraphics{figuras/droopy.jpg}
-    \caption{Legenda}
-    \label{fig:figura-001}
-\end{figure}
+O tipo I é usado pelo lw, sw e beq na implementação, tipo R é usado para as operações aritmeticas add, sub, slt e or, já o tipo J, pelo jump. A Figura 3 mostra a divisão de bits de cada operação.
 
-\section{Tópico do Texto 2} \label{sec_topico_texto_2}
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.5]{imagens/FormatosInstrucao.png}
+        \caption{Formatos de instrução}
+        \label{fig:hostnetid}
+        \end{figure}
 
-As tabelas também devem ser referenciadas no texto. Por exemplo, tal e tal coisa estão presentes na Tabela~{\ref{tab:tabela-001}}. As tabelas podem ter o formato necessário para a apresentação dos valores, dados necessários à complementação do texto.
-
-
-\begin{table}[h]
-\caption {Sample Data}
-\begin{center}
-\begin{tabular}{|c|c|c|} \hline
-$x$ & $y$ & $teste$  \\
-\hline \hline
-100 & 1 & Oi \\
-\hline
-85 & 2 & Sou  \\
-\hline
-70 & 4 & a  \\
-\hline
-50 & 8 & terceira  \\
-\hline
-36 & 15 & coluna  \\
-\hline
-20 & 25 & 0  \\
-\hline
-10 & 45 & 0  \\
-\hline
-\end{tabular}
-\end{center}
-\label{tab:tabela-001}
-\end{table}
+Os canais do controlador partem para outras estruturas de controle do MIPS, como os registradores, o controle principal e o controle de ULA. 
 
 
-\subsection{Gráficos}
-Gráficos também podem ser utilizados, nas mais diversas formas que os autores julgarem necessárias para demonstrar, provar ou simplesmente apresentar os resultados, estatísticas, enfim, qualquer informação que seja importante para complementar e apresentar visualmente ao leitor informações relevantes que complementem, agreguem informações ao texto escrito. Exemplo, na Figura~{\ref{fig:figura-002}} são apresentados os valores de consumo dinâmico no modo de execução SMT-16.
+\subsection{Controle da ULA:}
 
-\begin{figure}[*H]
-    \centering
-    \includegraphics[width=.5\textwidth]{figuras/consumo.jpg}
-    \caption{Consumo de Energia}
-    \label{fig:figura-002}
-\end{figure}
+Para montar o controle da ULA, precisamos de duas entradas: ALUOp e Funct.
+\begin{itemize}
+  \item \textbf{ALUOp}: Recebemos dos sinais de controle ALUOp0 e ALUOp1, sendo 1 0 os ALUops das operações aritméticas. 
+   \item \textbf{Funct}: Recebemos do decodificador, ela é responsável por sabermos qual operação(add, sub, or, slt e and). A Figura 4 mostra a relação da funct com as operações
+\end{itemize}
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=1.0]{imagens/operações.png}
+        \caption{Operações}
+        \label{fig:hostnetid}
+        \end{figure}
 
-\subsection{Código fonte}
+\subsub{Controle da ULA Circuito:}
+Montamos com isso por fim o ALUControl, tendo como saida a operação para a ULA. A Figura 5 mostra o circuito.
 
-Código fonte pode ser inserido diretamente, conforme o exemplo no Código~{\ref{cod:codigo-direto}}.
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.5]{imagens/ALUControl.JPG}
+        \caption{Circuito ALUControl}
+        \label{fig:hostnetid}
+        \end{figure}
 
-\begin{lstlisting}[label=cod:codigo-direto,caption=Descrição VHDL de uma Porta AND de duas entradas.]
--- Project generated by script.
--- Date: Ter,06/11/2012-09:40:15
--- Author: a1061852
--- Comments: Entity Description: and2.
- 
-library ieee;
-use ieee.std_logic_1164.all;
-use ieee.std_logic_unsigned.all;
- 
-entity and2 is
-port (A, B: in std_logic; C: out std_logic);
-end and2;
- 
-architecture logica of and2 is
-begin
-  -- Commands.
-  C <= A and B;
-end logica;
+\subsection{Circuito}
+
+Tendo feito a ALU, posicionar os multiplexadores e direcionado os caminhos do decodificador e dos sinais de controle, temos, por fim, o circuito manual do MIPS. A Figura 6 Mostra o circuito.
+
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.5]{imagens/circuito.JPG}
+        \caption{Circuito Completo}
+        \label{fig:hostnetid}
+        \end{figure}
+
+\subsection{Operações de teste}
+Por fim, sera realizado a rotina do teste_1.asm. Com o código: 
+
+\begin{lstlisting}
+    .data
+    .text
+    .globl main
+main:
+    lw,$t2,0($zero)
+    lw $t3.4($zero)
+    add $t1,$t2,$t3
+    sw, $t1,8($zero)
+exit: beq $zero,$zero,exit
 \end{lstlisting}
 
-Ou pode ser inserido de um arquivo, conforme no Código~{\ref{cod:codigo-arquivo}}.
 
-\lstinputlisting[label=cod:codigo-arquivo,caption=Porta Ou Exclusivo ]{codigo/xor2.vhd}
+\subsubsection{lw $t2,0($zero)}
+Primeiro temos lw $t2,0($zero), que tem a tabela de controle de sinais ilustrado na Tabela 1:
 
-A Figura~{\ref{fig:figura-003}}, apresenta um outro tipo de gráfico que pode ser utilizado, com já foi dito, qualquer tipo de gráfico pode ser utilizado para permitir ao leitor uma visualização de informações importantes.
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá.
+\begin{table}[h!]
+  \centering
+  \begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{*{14}{|c}|}%%{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  RegDst & EscreveReg &OrigALU & Branch & EscreveMem & LeMem & MemparaReg & OPcode\\
+  \hline
+  \hline
+  $0$ & $1$ & $1$ & $0$ & $0$ & $1$ & $1$ &
+  $00$ \\
+  \hline
+\end{tabular}
+\end{adjustbox}
+  \caption{Tabela controle para lw $t2,0($zero)}
+  \label{tab:label_test}
+\end{table}
 
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
+Essa operação gera os estados no circuito ilustrados pelo Figura 8 : 
 
-\begin{figure}[*H]
-    \centering
-    \includegraphics[width=.5\textwidth]{figuras/consumo-2.jpg}
-    \caption{Consumo de Energia 2}
-    \label{fig:figura-003}
-\end{figure}
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.5]{imagens/teste_1.JPG}
+        \caption{Controle MIPS para lw $t2,0($zero)}
+        \label{fig:hostnetid}
+        \end{figure}
 
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá.
+\subsubsection{lw $t3,4($zero)}
+Depois, temos lw $t3,4($zero), que tem a tabela de controle de sinais ilustrado na Tabela 2:
 
-\section{Blá Blá}
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá. 
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá bláBlá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá.
+\begin{table}[h!]
+  \centering
+  \begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{*{14}{|c}|}%%{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  RegDst & EscreveReg &OrigALU & Branch & EscreveMem & LeMem & MemparaReg & OPcode\\
+  \hline
+  \hline
+  $0$ & $1$ & $1$ & $0$ & $0$ & $1$ & $1$ &
+  $00$ \\
+  \hline
+\end{tabular}
+\end{adjustbox}
+  \caption{Tabela controle para lw $t3,4($zero)}
+  \label{tab:label_test}
+\end{table}
 
-\section{Conclusão}
+Essa operação gera os estados no circuito ilustrados pelo Figura 9 : 
 
-Conclua as ideias, responda a questionamentos, discuta resultados obtidos e etc.
-Os trabalhos utilizados para a elaboração do seu trabalho deve ser citado na seção “Referências” e referenciado no meio do texto, onde estiver as ideias associadas a ele. Lembre-se, copiar texto da Internet ou de qualquer outro trabalho e dizer que é de sua autoria é crime de Plágio. A utilização de textos oriundos da Internet pode ocorrer, mas com a devida cautela, pois a internet é um meio de livre publicação, não se tem a garantia da veracidade das informações publicadas. Sempre procure referenciar artigos científicos, livros, enfim, fontes mais seguras que uma página qualquer de internet.
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá blá. 
-Blá Blá blá blá blá Blá Blá blá blá blá Blá Blá blá blá.
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.5]{imagens/teste_1.JPG}
+        \caption{Controle MIPS para lw $t3,4($zero)}
+        \label{fig:hostnetid}
+        \end{figure}
+        
+\subsubsection{add t1,t2,t3}
+Temos add t1, t2, t3, que tem a tabela de controle de sinais ilustrado na Tabela 3:
 
-%------------------------------------------------------------------------- 
-\nocite{ex1,ex2}
-\bibliographystyle{latex8}
-\bibliography{bibliografia}
+\begin{table}[h!]
+  \centering
+  \begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{*{14}{|c}|}%%{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  RegDst & EscreveReg &OrigALU & Branch & EscreveMem & LeMem & MemparaReg & OPcode\\
+  \hline
+  \hline
+  $1$ & $1$ & $0$ & $0$ & $0$ & $0$ & $0$ &
+  $10$ \\
+  \hline
+\end{tabular}
+\end{adjustbox}
+  \caption{Tabela controle para add $t1,$t2,$t3}
+  \label{tab:label_test}
+\end{table}
+
+Essa operação gera os estados no circuito ilustrados pelo Figura 10 : 
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.4]{imagens/teste_3.JPG}
+        \caption{Controle MIPS para add $t1,$t2,$t3}
+        \label{fig:hostnetid}
+        \end{figure}
+
+\subsubsection{sw $t1,8($zero)}
+Temos sw $t1,8($zero), que tem a tabela de controle de sinais ilustrado na Tabela 4:
+
+\begin{table}[h!]
+  \centering
+  \begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{*{14}{|c}|}%%{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  RegDst & EscreveReg &OrigALU & Branch & EscreveMem & LeMem & MemparaReg & OPcode\\
+  \hline
+  \hline
+  $1$ & $1$ & $0$ & $0$ & $0$ & $0$ & $0$ &
+  $00$ \\
+  \hline
+\end{tabular}
+\end{adjustbox}
+  \caption{Tabela controle para sw $t1,8($zero)}
+  \label{tab:label_test}
+\end{table}
+
+Essa operação gera os estados no circuito ilustrados pelo Figura 11 : 
+
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.5]{imagens/teste_4.JPG}
+        \caption{Controle MIPS para sw $t1,8($zero)}
+        \label{fig:hostnetid}
+        \end{figure}
+
+\subsubsection{beq $zero,$zero,exit}
+Temos beq $zero,$zero,exit, que tem a tabela de controle de sinais ilustrado na Tabela 5:
+
+\begin{table}[h!]
+  \centering
+  \begin{adjustbox}{max width=\textwidth}
+  \begin{tabular}{*{14}{|c}|}%%{|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}
+  \hline
+  RegDst & EscreveReg &OrigALU & Branch & EscreveMem & LeMem & MemparaReg & OPcode\\
+  \hline
+  \hline
+  $0$ & $0$ & $0$ & $1$ & $0$ & $0$ & $0$ &
+  $01$ \\
+  \hline
+\end{tabular}
+\end{adjustbox}
+  \caption{Tabela controle para beq $zero,$zero,exit}
+  \label{tab:label_test}
+\end{table}
+
+Essa operação gera os estados no circuito ilustrados pelo Figura 12 :
+        \begin{figure}[!htb]
+        \centering
+        \includegraphics[scale=0.5]{imagens/teste_5.JPG}
+        \caption{Controle MIPS para beq $zero,$zero,exit}
+        \label{fig:hostnetid}
+        \end{figure}
+        
+Após realizado  saída, o teste é finalizado.
+
+\subsection{Conclusão}
+Na discplina de Arquitetura e Redes de Computadores, torna-se fundamental o entendimento desses conceitos básicos de aplicação. A partir deles podemos, por fim, entender os componentes básicos da implementação de controle MIPS e Caminho de Dados de Ciclo Único.
+\\
+\\
+\\
+\begin{thebibliography}{2}
+
+\bibitem{Patterson} 
+Patterson, David A. - Hennessy, John L. 
+\textit{Organização e Projeto de Computadores (5ª Edição)} . 
+LTC Exatas Didático, 2017.
+
+\bibitem{knuthwebsite} 
+\textit{CA16 - MIPS control signals},
+\\\texttt{https://www.youtube.com/watch?v=lqHKJyYCkXk}
+\end{thebibliography}
 
 \end{document}
+O Decodificador é o bloco que recebe a memória da instrução, e a subdivide em três (3) formatos básicos, sendo cada uma responsavel por um tipo de operação ou conjunto de instrução, que são;
+
+

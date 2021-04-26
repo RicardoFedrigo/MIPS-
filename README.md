@@ -13,15 +13,15 @@ Lista de implementações realizadas:
 
 - [x] Caminho de dados utilizando o controle principal e da ALU manualmente para as instruções add, sub, and, or, slt, lw, sw e beq
 
-- [ ] Controle principal e da ALU utilizando lógica combinacional para as instruções add, sub, and, or, slt, lw, sw e beq.
+- [X] Controle principal e da ALU utilizando lógica combinacional para as instruções add, sub, and, or, slt, lw, sw e beq.
 
-- [ ] Acrescentar ao controle principal utilizando lógica combinacional as instruções addi e jump.
+- [X] Acrescentar ao controle principal utilizando lógica combinacional as instruções addi e jump.
 
-- [ ] Teste do controle manual utilizando o programa assembly MIPS teste_1.mem.
+- [X] Teste do controle manual utilizando o programa assembly MIPS teste_1.mem.
 
-- [ ] Teste do controle implementado utilizando o programa assembly MIPS teste_1.mem.
+- [X] Teste do controle implementado utilizando o programa assembly MIPS teste_1.mem.
 
-- [ ] Testar o controle implementado utilizando o programa assembly MIPS teste_2.mem.
+- [X] Testar o controle implementado utilizando o programa assembly MIPS teste_2.mem.
 
 
 
